@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-dp
+  labels:
+    app: myapp
+    layer: frontend
+spec:
+  template:
+    metadata:
+      name: nginx-pod
+      labels:
+        type: webserver
+        layer: frontend
+    spec:
+      containers:
+      - name: nginx-custom
+        image: it8simple/nginx-hostname:1.0
+        ports:
+        - containerPort: 80
+  replicas: 5
+  selector:
+    matchLabels:
+      type: webserver
+      layer: frontend
